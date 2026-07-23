@@ -1,0 +1,11 @@
+{
+  "name": "crash-to-mr-firebase-function",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-functions": "^7.0.0"
+  }
+}

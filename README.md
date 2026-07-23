@@ -67,17 +67,27 @@ Pipeline triggers) — this is the `GITLAB_TRIGGER_TOKEN` the Firebase function
 sends.
 
 ### 4. Deploy the Firebase function
-From `firebase-functions/`:
 
 ```
-firebase deploy --only functions:onCrashlyticsFatalIssue \
-  --set-secrets GITLAB_TRIGGER_TOKEN=<pipeline-trigger-token> \
-  --project <your-firebase-project>
+cd firebase-functions
+./setup.sh
 ```
 
-Set `GITLAB_PROJECT_ID`, `GITLAB_HOST` (defaults to `https://gitlab.com`) and
-`GITLAB_REF` (defaults to `main`) as function config params — see
-`firebase-functions/index.js`.
+This prompts for your Firebase project ID, `GITLAB_HOST` (defaults to
+`https://gitlab.com` — override for self-hosted GitLab), `GITLAB_PROJECT_ID`
+(the target project's numeric ID), and `GITLAB_REF` (the branch to trigger
+against — check your project's actual default branch, it isn't always
+`main`). It writes those into `.env` (not committed), sets the
+`GITLAB_TRIGGER_TOKEN` secret via a hidden Firebase CLI prompt (never written
+to a file by this script), and offers to deploy immediately.
+
+Prefer to do it by hand instead? The four values it's asking for are the
+`defineSecret`/`defineString` params declared at the top of
+`firebase-functions/index.js` — set them as Firebase function params/secrets
+however you like, then:
+```
+firebase deploy --only functions:onCrashlyticsFatalIssue --project <your-firebase-project>
+```
 
 ## How the agent decides what to change
 
