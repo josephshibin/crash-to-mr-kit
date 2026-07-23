@@ -32,6 +32,14 @@ repo (must be run from a repo root).
 
 ## Configuration
 
+> **Permission note:** creating a Pipeline trigger token, a Project Access
+> Token, or CI/CD variables all require **Maintainer (or Owner) role** on the
+> target GitLab project. If the **Settings** entry is missing from your
+> project's left sidebar entirely, that's GitLab telling you your current
+> role (e.g. Developer) is too low — GitLab hides Settings rather than
+> showing it disabled. Ask a project Maintainer/Owner to either grant you
+> Maintainer or create these three items and hand you the values.
+
 ### 1. GitLab CI/CD variables (target repo)
 Add these under Settings > CI/CD > Variables (masked, protected):
 
